@@ -24,87 +24,87 @@ function GetUsers(request, response) {
         });
     });
 }
-//PUNTO 1
+//DESARROLLO PUNTO 1
 function GetUsersByHobby(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
         const hobby = request.query.hobby;
         if (!hobby) {
             return response.status(400).json({
-                message: "Hobby is required",
+                message: "Hobby es requerido",
             });
         }
         const users = yield (0, user_controller_1.readUsers)();
         const usersWithHobby = users.filter(user => user.hobbies.includes(hobby));
         response.status(200).json({
-            message: `Users with hobby: ${hobby}`,
+            message: `Usuarios con hobby: ${hobby}`,
             users: usersWithHobby,
         });
     });
 }
-//PUNTO 2
+//DESARROLLO PUNTO 2
 function CheckUserExists(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
         const userId = request.query.id;
         if (!userId) {
             return response.status(400).json({
-                message: "User ID is required.",
+                message: "Se requiere ID de usuario.",
             });
         }
         const users = yield (0, user_controller_1.readUsers)();
         const userExists = users.some(user => user.id === Number(userId));
         response.status(200).json({
-            message: userExists ? "User exists." : "User does not exist.",
+            message: userExists ? "Usuario existente." : "Usuario no existente.",
             exists: userExists,
         });
     });
 }
-//PUNTO 3
+//DESARROLLO PUNTO 3
 function GetTeamExperience(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
         const team = request.query.team;
         if (!team) {
             return response.status(400).json({
-                message: "Team is required.",
+                message: "Team es requerido.",
             });
         }
         const users = yield (0, user_controller_1.readUsers)();
         const teamUsers = users.filter(user => user.team === team);
         const totalExperience = teamUsers.reduce((acc, user) => acc + user.years, 0);
         response.status(200).json({
-            message: `Total experience for team ${team}: ${totalExperience} years.`,
+            message: `Experiencia total para el team ${team}: ${totalExperience} años.`,
             totalExperience: totalExperience,
         });
     });
 }
-//PUNTO 4
+//DESARROLLO PUNTO 4
 function GetUsersByFaction(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
         const faction = request.query.faction;
         if (!faction) {
             return response.status(400).json({
-                message: "Faction is required.",
+                message: "Faction es requerida.",
             });
         }
         const users = yield (0, user_controller_1.readUsers)();
         const usersByFaction = users.filter(user => user.faction === faction);
         response.status(200).json({
-            message: `Users in faction: ${faction}`,
+            message: `Usuarios en faction: ${faction}`,
             users: usersByFaction,
         });
     });
 }
-//PUNTO 5
+//DESARROLLO PUNTO 5
 function registerUser(request, response) {
     return __awaiter(this, void 0, void 0, function* () {
         const { id, name, carrera } = request.body;
         if (!id || !name || !carrera) {
             return response.status(400).json({
-                message: "All fields (id, name, carrera) are required."
+                message: "Todos los campos son requeridos."
             });
         }
         users.push({ id, name, carrera });
         response.status(201).json({
-            message: "User registered successfully.",
+            message: "Usuario registrado.",
             user: { id, name, carrera },
         });
     });
