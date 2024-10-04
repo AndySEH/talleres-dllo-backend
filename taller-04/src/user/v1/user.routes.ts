@@ -16,14 +16,14 @@ async function GetUsers(request: Request, response: Response) {
   });
 }
 
-//PUNTO 1
+//DESARROLLO PUNTO 1
 
 async function GetUsersByHobby(request: Request, response: Response) {
   const hobby = request.query.hobby as string;
 
   if (!hobby) {
     return response.status(400).json({
-      message: "Hobby is required",
+      message: "Hobby es requerido",
     });
   }
 
@@ -31,19 +31,19 @@ async function GetUsersByHobby(request: Request, response: Response) {
   const usersWithHobby = users.filter(user => user.hobbies.includes(hobby));
 
   response.status(200).json({
-    message: `Users with hobby: ${hobby}`,
+    message: `Usuarios con hobby: ${hobby}`,
     users: usersWithHobby,
   });
 }
 
-//PUNTO 2
+//DESARROLLO PUNTO 2
 
 async function CheckUserExists(request: Request, response: Response) {
   const userId = request.query.id as string;
 
   if (!userId) {
     return response.status(400).json({
-      message: "User ID is required.",
+      message: "ID de usuario es requerido.",
     });
   }
 
@@ -51,19 +51,19 @@ async function CheckUserExists(request: Request, response: Response) {
   const userExists = users.some(user => user.id === Number(userId));
 
   response.status(200).json({
-    message: userExists ? "User exists." : "User does not exist.",
+    message: userExists ? "Usuario existente." : "Usuario no existente.",
     exists: userExists,
   });
 }
 
-//PUNTO 3
+//DESARROLLO PUNTO 3
 
 async function GetTeamExperience(request: Request, response: Response) {
   const team = request.query.team as string;
 
   if (!team) {
     return response.status(400).json({
-      message: "Team is required.",
+      message: "Team es requerido.",
     });
   }
 
@@ -73,19 +73,19 @@ async function GetTeamExperience(request: Request, response: Response) {
   const totalExperience = teamUsers.reduce((acc, user) => acc + user.years, 0);
 
   response.status(200).json({
-    message: `Total experience for team ${team}: ${totalExperience} years.`,
+    message: `Experiencia total para el team ${team}: ${totalExperience} años.`,
     totalExperience: totalExperience,
   });
 }
 
-//PUNTO 4
+//DESARROLLO PUNTO 4
 
 async function GetUsersByFaction(request: Request, response: Response) {
   const faction = request.query.faction as string;
 
   if (!faction) {
     return response.status(400).json({
-      message: "Faction is required.",
+      message: "Faction es requerida.",
     });
   }
   
@@ -93,26 +93,26 @@ async function GetUsersByFaction(request: Request, response: Response) {
   const usersByFaction = users.filter(user => user.faction === faction);
 
   response.status(200).json({
-    message: `Users in faction: ${faction}`,
+    message: `Usuarios en faction: ${faction}`,
     users: usersByFaction,
   });
 }
 
-//PUNTO 5
+//DESARROLLO PUNTO 5
 
 async function registerUser(request: Request, response: Response) {
   const { id, name, carrera } = request.body;
 
   if (!id || !name || !carrera) {
       return response.status(400).json({
-          message: "All fields (id, name, carrera) are required."
+          message: "Todos los campos son requeridos."
       });
   }
 
   users.push({ id, name, carrera });
 
   response.status(201).json({
-      message: "User registered successfully.",
+      message: "Usuario registrado.",
       user: { id, name, carrera },
   });
 }
